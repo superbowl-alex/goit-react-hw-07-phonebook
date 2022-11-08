@@ -3,7 +3,7 @@ import ContactItem from '../ContactItem';
 import Notification from '../Notification';
 import { useSelector } from 'react-redux';
 import { getContacts, getFilter } from 'redux/selectors';
-import { List, WrapList, ListTitle } from './ContactList.styled';
+import { List, WrapList, ListTitle, Item } from './ContactList.styled';
 
 const ContactList = () => {
   const filter = useSelector(getFilter);
@@ -20,7 +20,9 @@ const ContactList = () => {
       {contacts.items.length > 0 ? (
         <List>
           {getVisibleContacts.map(({ id, name, number }) => (
-            <ContactItem key={id} id={id} name={name} number={number} />
+            <Item key={id}>
+              <ContactItem id={id} name={name} number={number} />
+            </Item>
           ))}
         </List>
       ) : (
