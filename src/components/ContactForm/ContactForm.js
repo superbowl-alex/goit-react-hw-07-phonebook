@@ -67,18 +67,17 @@ const ContactForm = () => {
     const { name } = values;
     const normalizedName = name.toLowerCase();
 
-    if (findContactByName(contacts.items, normalizedName)) {
+    if (findContactByName(contacts, normalizedName)) {
       Notiflix.Notify.warning(`${name} is already in contacts`);
       return;
     }
-
     dispatch(addContact(values));
     resetForm();
   };
 
   return (
     <Formik
-      initialValues={{ name: '', phone: '' }}
+      initialValues={{ name: '', number: '' }}
       validationSchema={schema}
       onSubmit={handleSubmit}
     >
@@ -93,8 +92,8 @@ const ContactForm = () => {
         <Label>
           Number
           <Thumb>
-            <Input type="tel" name="phone" autoComplete="off" />
-            <FormError name="phone" />
+            <Input type="tel" name="number" autoComplete="off" />
+            <FormError name="number" />
           </Thumb>
         </Label>
         <ButtonForm type="submit">Add contact</ButtonForm>
