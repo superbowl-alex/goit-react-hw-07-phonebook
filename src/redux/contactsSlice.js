@@ -30,19 +30,10 @@ const contactsSlice = createSlice({
       state.error = null;
       state.items = action.payload;
     },
-    addContact: {
-      reducer(state, action) {
-        state.items.push(action.payload);
-      },
-      prepare(data) {
-        const { name, phone } = data;
-        return {
-          payload: {
-            name,
-            phone,
-          },
-        };
-      },
+    [addContact.fulfilled](state, action) {
+      state.isLoading = false;
+      state.error = null;
+      state.items.push(action.payload);
     },
     [deleteContact.fulfilled](state, action) {
       state.isLoading = false;
