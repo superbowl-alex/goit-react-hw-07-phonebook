@@ -1,31 +1,52 @@
-import { createSlice, nanoid } from '@reduxjs/toolkit';
-import storage from 'redux-persist/lib/storage';
-import { persistReducer } from 'redux-persist';
+import { createSlice } from '@reduxjs/toolkit';
+import { fetchContacts, addContact, deleteContact } from './operations';
 
 const initialContactsState = {
   items: [],
+  isLoading: false,
+  error: null,
+};
+
+const handlePending = state => {
+  state.isLoading = true;
+};
+const handleRejected = (state, action) => {
+  state.isLoading = false;
+  state.error = action.payload;
 };
 
 const contactsSlice = createSlice({
   name: 'contacts',
   initialState: initialContactsState,
-  reducers: {
+  extrareducers: {
+    [fetchContacts.pending]: handlePending,
+    [addContact.pending]: handlePending,
+    [deleteContact.pending]: handlePending,
+    [fetchContacts.rejected]: handleRejected,
+    [addContact.rejected]: handleRejected,
+    [deleteContact.rejected]: handleRejected,
+    [fetchContacts.fulfilled](state, action) {
+      state.isLoading = false;
+      state.error = null;
+      state.items = action.payload;
+    },
     addContact: {
       reducer(state, action) {
         state.items.push(action.payload);
       },
       prepare(data) {
-        const { name, number } = data;
+        const { name, phone } = data;
         return {
           payload: {
-            id: nanoid(),
             name,
-            number,
+            phone,
           },
         };
       },
     },
-    deleteContact(state, action) {
+    [deleteContact.fulfilled](state, action) {
+      state.isLoading = false;
+      state.error = null;
       const index = state.items.findIndex(
         contact => contact.id === action.payload
       );
@@ -34,13 +55,4 @@ const contactsSlice = createSlice({
   },
 });
 
-const persistConfig = {
-  key: 'contacts',
-  storage,
-};
-
-export const contactsReducer = persistReducer(
-  persistConfig,
-  contactsSlice.reducer
-);
-export const { addContact, deleteContact } = contactsSlice.actions;
+export const contactsReducer = contactsSlice.reducer;

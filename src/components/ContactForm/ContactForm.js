@@ -3,7 +3,7 @@ import { Formik, ErrorMessage } from 'formik';
 import * as yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { getContacts } from 'redux/selectors';
-import { addContact } from 'redux/contactsSlice';
+import { addContact } from 'redux/operations';
 import {
   FormAddContacts,
   Label,
@@ -78,7 +78,7 @@ const ContactForm = () => {
 
   return (
     <Formik
-      initialValues={{ name: '', number: '' }}
+      initialValues={{ name: '', phone: '' }}
       validationSchema={schema}
       onSubmit={handleSubmit}
     >
@@ -93,8 +93,8 @@ const ContactForm = () => {
         <Label>
           Number
           <Thumb>
-            <Input type="tel" name="number" autoComplete="off" />
-            <FormError name="number" />
+            <Input type="tel" name="phone" autoComplete="off" />
+            <FormError name="phone" />
           </Thumb>
         </Label>
         <ButtonForm type="submit">Add contact</ButtonForm>
