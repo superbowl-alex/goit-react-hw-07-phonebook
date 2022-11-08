@@ -1,0 +1,10 @@
+{
+  "files": {
+    "main.js": "/goit-react-hw-07-phonebook/static/js/main.ccd19158.js",
+    "index.html": "/goit-react-hw-07-phonebook/index.html",
+    "main.ccd19158.js.map": "/goit-react-hw-07-phonebook/static/js/main.ccd19158.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.ccd19158.js"
+  ]
+}
