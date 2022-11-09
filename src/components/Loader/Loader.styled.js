@@ -4,5 +4,5 @@ export const WrapSpinner = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 30px;
+  margin-bottom: 25px;
 `;
