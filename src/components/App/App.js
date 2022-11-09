@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { fetchContacts } from 'redux/operations';
-import { getError, getIsLoading } from 'redux/selectors';
 import GlobalStyles from 'GlobalStyles';
 import ContactForm from '../ContactForm';
 import Filter from '../Filter';
@@ -10,8 +9,6 @@ import { Container, WrapForms, FormTitle } from './App.styled';
 
 export default function App() {
   const dispatch = useDispatch();
-  const isLoading = useSelector(getIsLoading);
-  const error = useSelector(getError);
 
   useEffect(() => {
     dispatch(fetchContacts());
@@ -25,7 +22,6 @@ export default function App() {
         <ContactForm />
         <Filter />
       </WrapForms>
-      {isLoading && !error && <b>Request in progress...</b>}
       <ContactList />
     </Container>
   );
